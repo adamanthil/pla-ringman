@@ -1,0 +1,24 @@
+{
+  "name": "pla-ringman",
+  "version": "1.0.0",
+  "description": "Tool for scraping and displaying auction data from Auctria for the Peace Lutheran Academy Goods and Services Auction",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "puppeteer": "^1.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamanthil/pla-ringman.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamanthil/pla-ringman/issues"
+  },
+  "homepage": "https://github.com/adamanthil/pla-ringman#readme"
+}
