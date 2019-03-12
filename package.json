@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.18.0",
+    "csv-parse": "^4.3.4",
     "dotenv": "^6.2.0",
     "puppeteer": "^1.13.0"
   },

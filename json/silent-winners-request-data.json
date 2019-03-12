@@ -21,7 +21,7 @@
                 "value": ""
             },
             "searchable": true,
-            "width": 24.412416851441243
+            "width": 4.8182272096105105
         },
         {
             "data": "Item_Title",
@@ -32,18 +32,18 @@
                 "value": ""
             },
             "searchable": true,
-            "width": 24.412416851441243
+            "width": 21.80126459714261
         },
         {
-            "data": "Item_Type",
-            "name": "Item_Type",
+            "data": "Item_Value",
+            "name": "Item_Value",
             "orderable": true,
             "search": {
                 "regex": false,
                 "value": ""
             },
             "searchable": true,
-            "width": 24.401330376940138
+            "width": 8.666185750933005
         },
         {
             "data": "Amount",
@@ -54,7 +54,7 @@
                 "value": ""
             },
             "searchable": true,
-            "width": 25.9589800443459
+            "width": 9.577431783919986
         },
         {
             "data": "Bidder_DisplayId",
@@ -65,7 +65,51 @@
                 "value": ""
             },
             "searchable": true,
-            "width": 24.639689578713973
+            "width": 6.754005341612233
+        },
+        {
+            "data": "Bidder_FirstName",
+            "name": "Bidder_FirstName",
+            "orderable": true,
+            "search": {
+                "regex": false,
+                "value": ""
+            },
+            "searchable": true,
+            "width": 9.166667103399229
+        },
+        {
+            "data": "Bidder_LastName",
+            "name": "Bidder_LastName",
+            "orderable": true,
+            "search": {
+                "regex": false,
+                "value": ""
+            },
+            "searchable": true,
+            "width": 9.3319078193632
+        },
+        {
+            "data": "Bidder_Email",
+            "name": "Bidder_Email",
+            "orderable": true,
+            "search": {
+                "regex": false,
+                "value": ""
+            },
+            "searchable": true,
+            "width": 21.458913482377547
+        },
+        {
+            "data": "Bidder_Phone",
+            "name": "Bidder_Phone",
+            "orderable": true,
+            "search": {
+                "regex": false,
+                "value": ""
+            },
+            "searchable": true,
+            "width": 8.02407556948309
         },
         {
             "data": null,
@@ -85,16 +129,16 @@
         },
         {
             "name": "itemgroup",
-            "value": "All"
+            "value": "Silent"
         }
     ],
-    "draw": 1,
+    "draw": 4,
     "export_type": "csv",
     "length": 9999,
     "name": "BidHistory",
     "order": [
         {
-            "column": 2,
+            "column": 1,
             "dir": "asc"
         }
     ],
@@ -106,5 +150,5 @@
     "start": 0,
     "tags": [],
     "tags_mode": "inclusive",
-    "view": "AllIncome"
+    "view": "WinningBidsByItem"
 }

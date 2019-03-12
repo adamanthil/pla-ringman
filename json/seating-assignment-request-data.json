@@ -57,7 +57,7 @@
     ],
     "draw": 1,
     "export_type": "csv",
-    "length": 100,
+    "length": 9999,
     "name": "Bidders",
     "order": [
         {

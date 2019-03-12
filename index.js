@@ -1,4 +1,5 @@
 const axios = require('axios');
+const parse = require('csv-parse/lib/sync')
 const puppeteer = require('puppeteer');
 
 const bidHistoryRequestData = require('./json/bid-history-request-data.json')
@@ -65,21 +66,69 @@ async function logIn(page) {
   await navigationPromise
 
   await page.waitForNavigation({ waitUntil: 'networkidle0' })
-  // await page.screenshot({ path: 'example.png' })
   const cookies = await page.cookies()
   return cookies
 }
 
-(async () => {
 
+function getTablesByBidder(csv) {
+  const tablesByBidder = {}
+  const records = parse(csv, {
+    columns: true,
+    skip_empty_lines: true
+  })
+
+  records.forEach(record => tablesByBidder[record['Bidder #']] = record['Table'])
+  return tablesByBidder
+}
+
+
+function generateTopTables(tablesByBidder, csv) {
+  const excludedItems = [
+    'auctiononly', 'auctiononlyfull', 'childticket', 'singleticket', 'singleticketfull',
+    'tableof8', 'tableof8full', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM'
+  ]
+
+  const spendByTable = {}
+  const records = parse(csv, {
+    columns: true,
+    skip_empty_lines: true,
+    trim: true,
+    quote: false
+  })
+
+  const addAmounts = record => {
+    const table = tablesByBidder[record['Bidder#']]
+    if (table) {
+      // if (table == 'Gotha') console.log(record)
+      if (spendByTable[table]) {
+        spendByTable[table] += parseFloat(record['Amount'])
+      } else {
+        spendByTable[table] = parseFloat(record['Amount'])
+      }
+    }
+  }
+
+  records
+    .filter(record => !excludedItems.includes(record['Item#']))
+    .forEach(addAmounts)
+
+  const topTables = Object.entries(spendByTable).sort((a, b) => b[1] - a[1])
+  console.log(topTables)
+
+  return topTables
+}
+
+
+(async () => {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
   const cookies = await logIn(page)
 
-  const seatingAssignmentCSV = await getReportCSV(seatingAssignmentRequestData, cookies)
-  const csv = await getReportCSV(bidHistoryRequestData, cookies)
+  const tablesByBidder = getTablesByBidder(await getReportCSV(seatingAssignmentRequestData, cookies))
 
-  console.log(seatingAssignmentCSV)
+  const bidHistoryCSV = await getReportCSV(bidHistoryRequestData, cookies)
+  generateTopTables(tablesByBidder, bidHistoryCSV)
 
   await browser.close()
 })();
