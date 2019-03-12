@@ -1,0 +1,77 @@
+{
+    "auction": "AUCTION_ID",
+    "columns": [
+        {
+            "data": null,
+            "name": "",
+            "orderable": false,
+            "search": {
+                "regex": false,
+                "value": ""
+            },
+            "searchable": false,
+            "width": 0
+        },
+        {
+            "data": "EventTable_DisplayId",
+            "name": "EventTable_DisplayId",
+            "orderable": true,
+            "search": {
+                "regex": false,
+                "value": ""
+            },
+            "searchable": true,
+            "width": 49.629646479200964
+        },
+        {
+            "data": "DisplayId",
+            "name": "DisplayId",
+            "orderable": true,
+            "search": {
+                "regex": false,
+                "value": ""
+            },
+            "searchable": true,
+            "width": 49.82337082480697
+        },
+        {
+            "data": null,
+            "name": "",
+            "orderable": false,
+            "search": {
+                "regex": false,
+                "value": ""
+            },
+            "searchable": false
+        }
+    ],
+    "controls": [
+        {
+            "name": "status",
+            "value": "All"
+        },
+        {
+            "name": "group",
+            "value": "All"
+        }
+    ],
+    "draw": 1,
+    "export_type": "csv",
+    "length": 100,
+    "name": "Bidders",
+    "order": [
+        {
+            "column": 2,
+            "dir": "asc"
+        }
+    ],
+    "organization": "ORGANIZATION_ID",
+    "search": {
+        "regex": false,
+        "value": ""
+    },
+    "start": 0,
+    "tags": [],
+    "tags_mode": "inclusive",
+    "view": "Seating"
+}
