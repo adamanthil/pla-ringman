@@ -101,9 +101,9 @@ function writeHtml(templateName, data) {
 
 
 function formatDollars(number) {
-  const formatted = Math.abs(number)
-    .toFixed(2)
-    .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+  const formatted = Math.round(Math.abs(number))
+    .toString()
+    .replace(/\d(?=(\d{3})+$)/g, '$&,')
   return `${(number < 0) ? '-' : ''}$${formatted}`
 }
 
