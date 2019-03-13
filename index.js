@@ -184,7 +184,7 @@ async function refreshLogin() {
 (async () => {
   writeLog('Startup')
   writeLog('Logging In')
-  cookies = await refreshLogin()
+  let cookies = await refreshLogin()
 
   writeLog('Retrieving Table Assignments')
   const tablesByBidder = getTablesByBidder(await getReportCSV(seatingAssignmentRequestData, cookies))
