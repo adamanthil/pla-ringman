@@ -136,8 +136,8 @@ function generateTopTables(tablesByBidder, csv) {
   const topAmount = sortedTables[0][1]
   const topTables = sortedTables
     .slice(0, displayNumber)
-    // .map(r => ({ name: r[0], amount: r[1], diff: r[1] - topAmount }))
-    .map(r => ({ name: r[0], amount: r[1] + Math.floor(Math.random() * 2000), diff: r[1] - topAmount }))
+    .map(r => ({ name: r[0], amount: r[1], diff: r[1] - topAmount }))
+    // .map(r => ({ name: r[0], amount: r[1] + Math.floor(Math.random() * 2000), diff: r[1] - topAmount }))
 
   writeHtml('top-tables', { tables: topTables })
 }
