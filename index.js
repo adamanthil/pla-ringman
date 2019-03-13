@@ -96,7 +96,7 @@ function writeHtml(templateName, data) {
   const source = fs.readFileSync(`./templates/${templateName}.hbs`).toString()
   const template = handlebars.compile(source)
   const result = template(data)
-  fs.writeFileSync(`./_build/${templateName}.html`, result)
+  fs.writeFileSync(`./www/${templateName}.html`, result)
 }
 
 
