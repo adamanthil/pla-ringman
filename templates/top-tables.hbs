@@ -2,14 +2,23 @@
 	<head>
 		<title>Top Tables</title>
 		<meta http-equiv="refresh" content="5" />
+        <link rel="stylesheet" href="./styles.css" />
 	</head>
-	<body>
+	<body class="top-tables">
 		<h1>Top Tables</h1>
 		{{#each tables}}
-		    <div>
-		    	{{name}}
-		    	{{amount}}
+            {{#if winner}}
+            <div class="winner">
+            {{else}}
+            <div style="width: {{perc}}%;">
+            {{/if}}
+                <span class="name">{{name}}</span>
+                <span class="details">
+                    <span class="total">{{amount}}</span>
+                    <span class="diff">{{diff}}</span>
+                </span>
 		    </div>
 		{{/each}}
+        <aside>The table that raises the most for the Academy this year will win a free table registration to the 2020 auction and each person at the table gets an individual prize pack</aside>
 	</body>
 </html>

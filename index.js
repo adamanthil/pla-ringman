@@ -127,6 +127,10 @@ function generateTopTables(tablesByBidder, csv) {
     }
   }
 
+  const formatDollars = number => {
+    return `${(number < 0) ? '-' : ''}$${Math.abs(number)}`
+  }
+
   records
     .filter(record => !excludedItems.includes(record['Item#']))
     .forEach(addAmounts)
@@ -136,7 +140,13 @@ function generateTopTables(tablesByBidder, csv) {
   const topAmount = sortedTables[0][1]
   const topTables = sortedTables
     .slice(0, displayNumber)
-    .map(r => ({ name: r[0], amount: r[1], diff: r[1] - topAmount }))
+    .map(r => ({
+      name: r[0],
+      amount: formatDollars(r[1]),
+      diff: formatDollars(r[1] - topAmount),
+      winner: r[1] === topAmount,
+      perc: (r[1] / topAmount) * 100
+    }))
     // .map(r => ({ name: r[0], amount: r[1] + Math.floor(Math.random() * 2000), diff: r[1] - topAmount }))
 
   writeHtml('top-tables', { tables: topTables })

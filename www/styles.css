@@ -1,0 +1,67 @@
+body, html {
+    font-family: Helvetica Neue, helvetica, sans-serif; 
+}
+
+body {
+    padding: 20px 40px;
+}
+
+h1 {
+    font-family: Futura-Bold, Futura;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 54px;
+}
+
+aside {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 300px;
+    color: #666;
+}
+
+.top-tables div {
+    background-color: #f2f2f2;
+    margin-bottom: 5px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    min-width: 300px;
+    line-height: 1;
+}
+
+.top-tables div .name {
+    font-family: Futura;
+    font-size: 36px;
+}
+.top-tables div .details {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    font-family: "HelveticaNeue-CondensedBold", "HelveticaNeueBoldCondensed", "HelveticaNeue-Bold-Condensed", "Helvetica Neue Bold Condensed", "HelveticaNeueBold", "HelveticaNeue-Bold", "Helvetica Neue Bold", "HelveticaNeue", "Helvetica Neue", helvetica, "Tahoma", "Geneva", "Arial Narrow", "Arial", sans-serif;
+    font-weight: 600;
+    font-stretch: condensed;
+}
+.top-tables div .total {
+    font-size: 48px;
+    color: #4A4A4A;
+    display: inline-block;
+}
+.top-tables div .diff {
+    font-size: 24px;
+    color: #BA0001;
+}
+
+/** Winner */
+.top-tables div.winner {
+    background-color: #e6e6e6;
+}
+.top-tables div.winner .total {
+    color: #249243;
+    font-size: 64px;
+}
+.top-tables div.winner .diff {
+    display: none;
+}
