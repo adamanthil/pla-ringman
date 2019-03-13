@@ -12,6 +12,11 @@ const silentWinnersRequestData = require('./json/silent-winners-request-data.jso
 require('dotenv').config();
 
 
+function sleep(s) {
+  return new Promise(resolve => setTimeout(resolve, s * 1000));
+}
+
+
 async function getReportCSV(data, cookies) {
   const cookieHeaderValue = cookies.map((cookie) => cookie.name + '=' + cookie.value + ';').join(' ')
   const headers = {
@@ -87,6 +92,14 @@ function getTablesByBidder(csv) {
 }
 
 
+function writeHtml(templateName, data) {
+  const source = fs.readFileSync(`./templates/${templateName}.hbs`).toString()
+  const template = handlebars.compile(source)
+  const result = template(data)
+  fs.writeFileSync(`./_build/${templateName}.html`, result)
+}
+
+
 function generateTopTables(tablesByBidder, csv) {
   const displayNumber = 5
   const excludedItems = [
@@ -123,13 +136,10 @@ function generateTopTables(tablesByBidder, csv) {
   const topAmount = sortedTables[0][1]
   const topTables = sortedTables
     .slice(0, displayNumber)
-    .map(r => ({ name: r[0], amount: r[1], diff: r[1] - topAmount }))
-    // .map(r => ({ name: r[0], amount: r[1] + Math.floor(Math.random() * 2000), diff: r[1] - topAmount }))
+    // .map(r => ({ name: r[0], amount: r[1], diff: r[1] - topAmount }))
+    .map(r => ({ name: r[0], amount: r[1] + Math.floor(Math.random() * 2000), diff: r[1] - topAmount }))
 
-  const source = fs.readFileSync('./templates/top-tables.hbs').toString()
-  const template = handlebars.compile(source)
-  const result = template({ tables: topTables })
-  fs.writeFileSync('./_build/top-tables.html', result)
+  writeHtml('top-tables', { tables: topTables })
 }
 
 
@@ -141,30 +151,74 @@ function generateSilentWinners(csv) {
     quote: false
   })
 
-  records.forEach(r => console.log(
-    r['Item#'],
-    r['Title'],
-    r['Bidder#'],
-    r['Firstname'],
-    r['Lastname'],
-    r['Amount']
-  ))
+  writeHtml('silent-winners', { items: records })
+}
+
+
+function generateRaffleWinners(csv) {
+  const records = parse(csv, {
+    columns: true,
+    skip_empty_lines: true,
+    trim: true,
+    quote: false
+  })
+
+  writeHtml('raffle-winners', { items: records })
+}
+
+
+function writeLog(string) {
+  time = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+  console.log(`${time} --- ${string}`)
+}
+
+
+async function refreshLogin() {
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+  const cookies = await logIn(page)
+  return cookies
 }
 
 
 (async () => {
-  const browser = await puppeteer.launch()
-  const page = await browser.newPage()
-  const cookies = await logIn(page)
+  writeLog('Startup')
+  writeLog('Logging In')
+  cookies = await refreshLogin()
 
+  writeLog('Retrieving Table Assignments')
   const tablesByBidder = getTablesByBidder(await getReportCSV(seatingAssignmentRequestData, cookies))
 
-  const bidHistoryCSV = await getReportCSV(bidHistoryRequestData, cookies)
-  generateTopTables(tablesByBidder, bidHistoryCSV)
+  let i = 0;
+  while (true) {
+    writeLog(`Iteration ${i}`)
 
-  // const silentWinnersCSV = await getReportCSV(silentWinnersRequestData, cookies)
-  // generateSilentWinners(silentWinnersCSV)
-  // const raffleWinnersCSV = await getReportCSV(raffleWinnersRequestData, cookies)
+    // Re-login every 10 iterations
+    if (i > 0 && i % 10 == 0) {
+      writeLog('Refreshing Login')
+      cookies = await refreshLogin()
+    }
+
+    writeLog('Generating Top Tables')
+    let bidHistoryCSV = await getReportCSV(bidHistoryRequestData, cookies)
+    generateTopTables(tablesByBidder, bidHistoryCSV)
+
+    // Only regenerate silent auction and raffle winners every 4 iterations
+    if (i % 4 == 0) {
+      writeLog('Generating Silent Auction Winners')
+      let silentWinnersCSV = await getReportCSV(silentWinnersRequestData, cookies)
+      generateSilentWinners(silentWinnersCSV)
+
+      writeLog('Generating Raffle Winners')
+      let raffleWinnersCSV = await getReportCSV(raffleWinnersRequestData, cookies)
+      generateRaffleWinners(raffleWinnersCSV)
+    }
+
+    // Rerun every minute
+    writeLog('Waiting...')
+    await sleep(60)
+    i++
+  }
 
   await browser.close()
 })();
