@@ -1,9 +1,13 @@
 const axios = require('axios');
-const parse = require('csv-parse/lib/sync')
+const fs = require('fs');
+const handlebars = require('handlebars');
+const parse = require('csv-parse/lib/sync');
 const puppeteer = require('puppeteer');
 
-const bidHistoryRequestData = require('./json/bid-history-request-data.json')
-const seatingAssignmentRequestData = require('./json/seating-assignment-request-data.json')
+const seatingAssignmentRequestData = require('./json/seating-assignment-request-data.json');
+const bidHistoryRequestData = require('./json/bid-history-request-data.json');
+const raffleWinnersRequestData = require('./json/raffle-winners-request-data.json');
+const silentWinnersRequestData = require('./json/silent-winners-request-data.json');
 
 require('dotenv').config();
 
@@ -84,6 +88,7 @@ function getTablesByBidder(csv) {
 
 
 function generateTopTables(tablesByBidder, csv) {
+  const displayNumber = 5
   const excludedItems = [
     'auctiononly', 'auctiononlyfull', 'childticket', 'singleticket', 'singleticketfull',
     'tableof8', 'tableof8full', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM'
@@ -113,10 +118,37 @@ function generateTopTables(tablesByBidder, csv) {
     .filter(record => !excludedItems.includes(record['Item#']))
     .forEach(addAmounts)
 
-  const topTables = Object.entries(spendByTable).sort((a, b) => b[1] - a[1])
-  console.log(topTables)
+  const sortedTables = Object.entries(spendByTable)
+    .sort((a, b) => b[1] - a[1])
+  const topAmount = sortedTables[0][1]
+  const topTables = sortedTables
+    .slice(0, displayNumber)
+    .map(r => ({ name: r[0], amount: r[1], diff: r[1] - topAmount }))
+    // .map(r => ({ name: r[0], amount: r[1] + Math.floor(Math.random() * 2000), diff: r[1] - topAmount }))
 
-  return topTables
+  const source = fs.readFileSync('./templates/top-tables.hbs').toString()
+  const template = handlebars.compile(source)
+  const result = template({ tables: topTables })
+  fs.writeFileSync('./_build/top-tables.html', result)
+}
+
+
+function generateSilentWinners(csv) {
+  const records = parse(csv, {
+    columns: true,
+    skip_empty_lines: true,
+    trim: true,
+    quote: false
+  })
+
+  records.forEach(r => console.log(
+    r['Item#'],
+    r['Title'],
+    r['Bidder#'],
+    r['Firstname'],
+    r['Lastname'],
+    r['Amount']
+  ))
 }
 
 
@@ -129,6 +161,10 @@ function generateTopTables(tablesByBidder, csv) {
 
   const bidHistoryCSV = await getReportCSV(bidHistoryRequestData, cookies)
   generateTopTables(tablesByBidder, bidHistoryCSV)
+
+  // const silentWinnersCSV = await getReportCSV(silentWinnersRequestData, cookies)
+  // generateSilentWinners(silentWinnersCSV)
+  // const raffleWinnersCSV = await getReportCSV(raffleWinnersRequestData, cookies)
 
   await browser.close()
 })();
