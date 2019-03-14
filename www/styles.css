@@ -75,8 +75,11 @@ aside {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
     height: 73vh;
+    display: none;
 }
-.paged-winners .page:first-child { display: block; display: grid; }
+.paged-winners .page.display {
+    display: grid;
+}
 .paged-winners .page-item {
     text-align: right;
 }
@@ -88,11 +91,10 @@ aside {
     display: flex;
 }
 .paged-winners .page-item .item-details .id {
-    width: 3ch;
+    width: 45px;
     text-overflow: clip;
 }
 .paged-winners .page-item .item-details .title {
-    text-overflow: ellipsis;
 }
 .paged-winners .page-item .bidder {
     display: inline-block;
