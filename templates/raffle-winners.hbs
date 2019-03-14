@@ -2,8 +2,27 @@
 	<head>
 		<title>Raffle Winners</title>
 		<meta http-equiv="refresh" content="30" />
+        <link rel="stylesheet" href="./styles.css" />
 	</head>
-	<body>
+	<body class="paged-winners">
 		<h1>Raffle Winners</h1>
+        <div class="pages">
+        {{#each pages as |items|}}
+            <div class="page">
+            {{#each items}}
+                <div class="page-item">
+                    <div class="item-details">
+                        <span class="id">{{"Item#"}}</span>
+                        <span class="title">{{Title}}</span>
+                    </div>
+                    <div class="bidder">
+                        <span class="id">{{"Bidder#"}}</span>
+                        <span class="name">{{Firstname}} {{Lastname}}</span>
+                    </div>
+                </div>
+            {{/each}}
+            </div>
+        {{/each}}
+        </div>
 	</body>
 </html>

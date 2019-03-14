@@ -65,3 +65,37 @@ aside {
 .top-tables div.winner .diff {
     display: none;
 }
+
+
+.paged-winners {}
+.paged-winners .page {
+    display: none;
+    grid-auto-flow: column;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    height: 73vh;
+}
+.paged-winners .page:first-child { display: block; display: grid; }
+.paged-winners .page-item {
+    text-align: right;
+}
+.paged-winners .page-item .item-details {
+    background-color: #f5f5f5;
+    padding: 10px;
+    text-align: left;
+    height: 5vh;
+    display: flex;
+}
+.paged-winners .page-item .item-details .id {
+    width: 3ch;
+    text-overflow: clip;
+}
+.paged-winners .page-item .item-details .title {
+    text-overflow: ellipsis;
+}
+.paged-winners .page-item .bidder {
+    display: inline-block;
+    background-color: #f5f5f5;
+    padding: 10px;
+}

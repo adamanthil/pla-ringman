@@ -16,6 +16,14 @@ function sleep(s) {
   return new Promise(resolve => setTimeout(resolve, s * 1000));
 }
 
+function chunkArray(arr, chunkSize) {
+    var groups = [], i;
+    for (i = 0; i < arr.length; i += chunkSize) {
+        groups.push(arr.slice(i, i + chunkSize));
+    }
+    return groups;
+}
+
 
 async function getReportCSV(data, cookies) {
   const cookieHeaderValue = cookies.map((cookie) => cookie.name + '=' + cookie.value + ';').join(' ')
@@ -165,7 +173,7 @@ function generateSilentWinners(csv) {
     quote: false
   })
 
-  writeHtml('silent-winners', { items: records })
+  writeHtml('silent-winners', { pages: chunkArray(records, 10) })
 }
 
 
@@ -177,7 +185,7 @@ function generateRaffleWinners(csv) {
     quote: false
   })
 
-  writeHtml('raffle-winners', { items: records })
+  writeHtml('raffle-winners', { pages: chunkArray(records, 10) })
 }
 
 
