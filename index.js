@@ -166,12 +166,16 @@ function generateTopTables(tablesByBidder, csv) {
 
 
 function generateSilentWinners(csv) {
-  const records = parse(csv, {
+  let records = parse(csv, {
     columns: true,
     skip_empty_lines: true,
     trim: true,
     quote: false
   })
+
+  records = records.map(record =>
+    Object.assign(record, {Amount: formatDollars(parseFloat(record.Amount))})
+  )
 
   writeHtml('silent-winners', { pages: chunkArray(records, 10) })
 }
