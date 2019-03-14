@@ -88,7 +88,7 @@ aside {
     font-weight: bold;
 }
 .paged-winners .page-item .item-details {
-    background-color: #f5f5f5;
+    background-color: #e6e6e6;
     padding: 10px;
     text-align: left;
     height: 5vh;
@@ -100,6 +100,7 @@ aside {
 }
 .paged-winners .page-item .item-details .title {
     flex-grow: 1;
+    font-weight: 500;
 }
 .paged-winners .page-item .item-details .amount {
     flex-grow: 0;
