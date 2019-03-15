@@ -1,7 +1,6 @@
 .DS_Store
 .env
 node_modules/
-www/raffle-winners.html
-www/silent-winners.html
+www/winners.html
 www/top-tables.html
 example.png

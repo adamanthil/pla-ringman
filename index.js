@@ -165,31 +165,36 @@ function generateTopTables(tablesByBidder, csv) {
 }
 
 
-function generateSilentWinners(csv) {
-  let records = parse(csv, {
+function generateWinners(silentCSV, raffleCSV) {
+  let silentRecords = parse(silentCSV, {
+    columns: true,
+    skip_empty_lines: true,
+    trim: true,
+    quote: false
+  })
+  let raffleRecords = parse(raffleCSV, {
     columns: true,
     skip_empty_lines: true,
     trim: true,
     quote: false
   })
 
-  records = records.map(record =>
+  silentRecords = silentRecords.map(record =>
     Object.assign(record, {Amount: formatDollars(parseFloat(record.Amount))})
   )
-
-  writeHtml('silent-winners', { pages: chunkArray(records, 10) })
-}
-
-
-function generateRaffleWinners(csv) {
-  const records = parse(csv, {
-    columns: true,
-    skip_empty_lines: true,
-    trim: true,
-    quote: false
+  raffleRecords = raffleRecords.map(record => {
+    delete record.Amount
+    return record
   })
 
-  writeHtml('raffle-winners', { pages: chunkArray(records, 10) })
+  const chunkAndLabel = (records, label) => {
+    return chunkArray(records, 10).map(record => Object.assign(record, {label: label}))
+  }
+
+  const silentPages = chunkAndLabel(silentRecords, 'Silent Auction Winners')
+  const rafflePages = chunkAndLabel(raffleRecords, 'Raffle Winners')
+
+  writeHtml('winners', { 'pages': silentPages.concat(rafflePages) })
 }
 
 
@@ -231,13 +236,14 @@ async function refreshLogin() {
 
     // Only regenerate silent auction and raffle winners every 4 iterations
     if (i % 4 == 0) {
-      writeLog('Generating Silent Auction Winners')
+      writeLog('Pulling Silent Auction Winners')
       let silentWinnersCSV = await getReportCSV(silentWinnersRequestData, cookies)
-      generateSilentWinners(silentWinnersCSV)
 
-      writeLog('Generating Raffle Winners')
+      writeLog('Pulling Raffle Winners')
       let raffleWinnersCSV = await getReportCSV(raffleWinnersRequestData, cookies)
-      generateRaffleWinners(raffleWinnersCSV)
+
+      writeLog('Generating Winners Report')
+      generateWinners(silentWinnersCSV, raffleWinnersCSV)
     }
 
     // Rerun every minute
