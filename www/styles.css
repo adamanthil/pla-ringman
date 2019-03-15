@@ -69,17 +69,23 @@ aside {
 
 
 .paged-winners {}
+.paged-winners .pages {
+    position: relative;
+}
 .paged-winners .page {
+    position: absolute;
     display: none;
     grid-auto-flow: column;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
     height: 73vh;
-    display: none;
+    display: grid;
+    transition: opacity 1s linear;
+    opacity: 0;
 }
 .paged-winners .page.display {
-    display: grid;
+    opacity: 1;
 }
 .paged-winners .page-item {
     text-align: right;
