@@ -1,5 +1,6 @@
 let pages = [...document.querySelectorAll('.page')]
-let header, currentPage, i
+let transitionsSet = false
+let header, currentPage, i, page, reloadInterval
 
 function init() {
   pages = [...document.querySelectorAll('.page')]
@@ -10,6 +11,15 @@ function init() {
 
   header.innerHTML = pages[currentPage].dataset.label
   pages[currentPage].classList.add('display')
+
+  if (!transitionsSet) {
+    window.setInterval(transitionPage, 10000)
+    transitionsSet = true
+  }
+
+  if (reloadInterval) {
+    window.clearInterval(reloadInterval)
+  }
 }
 
 function transitionPage() {
@@ -29,7 +39,6 @@ function transitionPage() {
 
 if (pages.length) {
   init()
-	window.setInterval(transitionPage, 10000)
 } else {
-	window.setInterval(() => refreshContent(init), 1 * 60 * 1000)
+	reloadInterval = window.setInterval(() => refreshContent(init), 1 * 60 * 1000)
 }
