@@ -223,8 +223,8 @@ async function refreshLogin() {
   while (true) {
     writeLog(`Iteration ${i}`)
 
-    // Re-login every 10 iterations
-    if (i > 0 && i % 10 == 0) {
+    // Re-login every 10 minutes
+    if (i > 0 && i % 20 == 0) {
       writeLog('Refreshing Login')
       cookies = await refreshLogin()
     }
@@ -233,8 +233,8 @@ async function refreshLogin() {
     let bidHistoryCSV = await getReportCSV(bidHistoryRequestData, cookies)
     generateTopTables(tablesByBidder, bidHistoryCSV)
 
-    // Only regenerate silent auction and raffle winners every 4 iterations
-    if (i % 4 == 0) {
+    // Only regenerate silent auction and raffle winners every 4 minutes
+    if (i % 8 == 0) {
       writeLog('Pulling Silent Auction Winners')
       let silentWinnersCSV = await getReportCSV(silentWinnersRequestData, cookies)
 
@@ -245,9 +245,9 @@ async function refreshLogin() {
       generateWinners(silentWinnersCSV, raffleWinnersCSV)
     }
 
-    // Rerun every minute
+    // Rerun every 30s
     writeLog('Waiting...')
-    await sleep(60)
+    await sleep(30)
     i++
   }
 

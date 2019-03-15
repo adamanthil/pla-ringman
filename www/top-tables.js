@@ -1,1 +1,1 @@
-window.setInterval(refreshContent, 10 * 1000)
+window.setInterval(refreshContent, 5 * 1000)
