@@ -85,7 +85,9 @@ aside {
     text-align: right;
 }
 .paged-winners .page-item .id {
-    font-weight: bold;
+    font-weight: 900;
+    font-size: 1.1em;
+    flex-shrink: 0;
 }
 .paged-winners .page-item .item-details {
     background-color: #e6e6e6;
@@ -93,6 +95,7 @@ aside {
     text-align: left;
     height: 5vh;
     display: flex;
+    font-weight: bold;
 }
 .paged-winners .page-item .item-details .id {
     width: 50px;
@@ -101,9 +104,13 @@ aside {
 .paged-winners .page-item .item-details .title {
     flex-grow: 1;
     font-weight: 500;
+    color: #111;
+    overflow: hidden;
 }
 .paged-winners .page-item .item-details .amount {
     flex-grow: 0;
+    color: #249243;
+    margin-left: 7px;
 }
 
 .paged-winners .page-item .bidder {
