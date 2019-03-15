@@ -159,7 +159,6 @@ function generateTopTables(tablesByBidder, csv) {
       winner: r[1] === topAmount,
       perc: (r[1] / topAmount) * 100
     }))
-    // .map(r => ({ name: r[0], amount: r[1] + Math.floor(Math.random() * 2000), diff: r[1] - topAmount }))
 
   writeHtml('top-tables', { tables: topTables })
 }
