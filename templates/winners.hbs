@@ -1,35 +1,38 @@
 <!doctype html>
 <html>
-	<head>
-        <meta charset="UTF-8">
-		<title>Auction Winners</title>
-        <link rel="stylesheet" href="./styles.css" />
-	</head>
-	<body class="paged-winners">
-		<h1>Winners</h1>
+  <head>
+    <meta charset="UTF-8">
+    <title>Auction Winners</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="paged-winners">
+    <section class="content">
+        <h1>Winners</h1>
         <div class="pages">
         {{#each pages as |items|}}
-            <div class="page" data-label="{{items.label}}">
-            {{#each items}}
-                <div class="page-item">
-                    <div class="item-details">
-                        <span class="id">{{"Item#"}}</span>
-                        <span class="title">{{Title}}</span>
-                        {{#if Amount}}
-                            <span class="amount">{{Amount}}</span>
-                        {{/if}}
-                    </div>
-                    <div class="bidder">
-                        <span class="id">{{"Bidder#"}}</span>
-                        <span class="name">{{Firstname}} {{Lastname}}</span>
-                    </div>
-                </div>
-            {{/each}}
+          <div class="page" data-label="{{items.label}}">
+          {{#each items}}
+            <div class="page-item">
+              <div class="item-details">
+                <span class="id">{{"Item#"}}</span>
+                <span class="title">{{Title}}</span>
+                {{#if Amount}}
+                  <span class="amount">{{Amount}}</span>
+                {{/if}}
+              </div>
+              <div class="bidder">
+                <span class="id">{{"Bidder#"}}</span>
+                <span class="name">{{Firstname}} {{Lastname}}</span>
+              </div>
             </div>
+          {{/each}}
+          </div>
         {{else}}
-            <span class="empty-message">Results pending.</span>
+          <span class="empty-message">Results pending.</span>
         {{/each}}
         </div>
-        <script src="paging.js"></script>
-	</body>
+      </section>
+    <script src="utils.js"></script>
+    <script src="paging.js"></script>
+  </body>
 </html>

@@ -1,5 +1,5 @@
 body, html {
-    font-family: Helvetica Neue, helvetica, sans-serif; 
+    font-family: Helvetica Neue, helvetica, sans-serif;
 }
 
 body {
@@ -14,10 +14,14 @@ h1 {
     margin-top: 0;
 }
 
+section {
+    position: relative;
+}
+
 aside {
     position: absolute;
     right: 20px;
-    bottom: 20px;
+    bottom: 0;
     width: 300px;
     color: #666;
 }
@@ -94,6 +98,7 @@ aside {
     font-weight: 900;
     font-size: 1.1em;
     flex-shrink: 0;
+    overflow: hidden;
 }
 .paged-winners .page-item .item-details {
     background-color: #e6e6e6;
