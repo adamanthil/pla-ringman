@@ -31,5 +31,5 @@ if (pages.length) {
   init()
 	window.setInterval(transitionPage, 10000)
 } else {
-	window.setInterval(refreshContent, 1 * 60 * 1000)
+	window.setInterval(() => refreshContent(init), 1 * 60 * 1000)
 }
