@@ -86,34 +86,36 @@ aside {
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
-    height: 73vh;
+    height: 76vh;
     display: grid;
     transition: opacity 1s linear;
     opacity: 0;
+    width: 100%;
 }
 .paged-winners .page.display {
     opacity: 1;
 }
 .paged-winners .page-item {
     text-align: right;
+    font-size: 0.925em;
+    margin-bottom: 8px;
 }
 .paged-winners .page-item .id {
     font-weight: 900;
-    font-size: 1.1em;
     flex-shrink: 0;
     overflow: hidden;
 }
 .paged-winners .page-item .item-details {
     background-color: #e6e6e6;
-    padding: 10px;
+    padding: 7px;
     text-align: left;
     height: 5vh;
-    height: 41px;
+    height: 36px;
     display: flex;
     font-weight: bold;
 }
 .paged-winners .page-item .item-details .id {
-    width: 50px;
+    width: 45px;
     flex-grow: 0;
 }
 .paged-winners .page-item .item-details .title {
