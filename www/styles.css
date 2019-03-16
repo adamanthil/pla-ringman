@@ -10,8 +10,10 @@ h1 {
     font-family: Futura-Bold, Futura;
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 54px;
+    font-size: 48px;
     margin-top: 0;
+    line-height: 1;
+    margin-bottom: 0.5em;
 }
 
 section {
@@ -20,16 +22,17 @@ section {
 
 aside {
     position: absolute;
-    right: 20px;
+    right: 0px;
     bottom: 0;
-    width: 300px;
+    width: 250px;
     color: #666;
+    font-size: 0.9rem;
 }
 
 .top-tables div {
     background-color: #f2f2f2;
     margin-bottom: 5px;
-    padding: 20px;
+    padding: 15px;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -39,7 +42,7 @@ aside {
 
 .top-tables div .name {
     font-family: Futura;
-    font-size: 36px;
+    font-size: 32px;
 }
 .top-tables div .details {
     text-align: right;
@@ -50,7 +53,7 @@ aside {
     font-stretch: condensed;
 }
 .top-tables div .total {
-    font-size: 48px;
+    font-size: 36px;
     color: #4A4A4A;
     display: inline-block;
 }
@@ -65,7 +68,7 @@ aside {
 }
 .top-tables div.winner .total {
     color: #249243;
-    font-size: 64px;
+    font-size: 48px;
 }
 .top-tables div.winner .diff {
     display: none;
