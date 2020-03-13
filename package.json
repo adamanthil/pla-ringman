@@ -8,6 +8,7 @@
     "csv-parse": "^4.4.6",
     "dotenv": "^6.2.0",
     "handlebars": "^4.7.3",
+    "pm2": "^4.2.3",
     "puppeteer": "^1.13.0"
   },
   "devDependencies": {},
