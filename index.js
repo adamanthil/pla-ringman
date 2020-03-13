@@ -36,7 +36,7 @@ async function getReportCSV(data, cookies) {
 
   const exportResponse = await axios({
     method: 'post',
-    url: 'https://auctria.com/API/Report/Export',
+    url: 'https://app.auctria.com/API/Report/Export',
     headers: headers,
     data: data
   });
@@ -45,7 +45,7 @@ async function getReportCSV(data, cookies) {
   do {
     progressResponse = await axios({
       method: 'post',
-      url: 'https://auctria.com/API/Job/Progress',
+      url: 'https://app.auctria.com/API/Job/Progress',
       headers: headers,
       data: {
         auction: process.env.AUCTION_ID,
@@ -55,7 +55,7 @@ async function getReportCSV(data, cookies) {
   } while (!progressResponse.data.Result.Complete)
 
   const csvResponse = await axios.get(
-    `https://auctria.com/Az/${process.env.AUCTION_ID}/Job/Result`,
+    `https://app.auctria.com/Az/${process.env.AUCTION_ID}/Job/Result`,
     {
       headers: headers,
       params: {
