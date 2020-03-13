@@ -143,6 +143,18 @@ function generateTopTables(tablesByBidder, csv) {
     }
   }
 
+  const calculateWidth = (amount, topAmount) => {
+    const lowestPercent = 10;
+    const scaleDiscount = 0.8;
+
+    const ratio = (amount / topAmount);
+    const scaleFactor = 1 + scaleDiscount * (1 - ratio);
+    const distanceFromWinner = ratio * scaleFactor;
+
+    const availableWidth = 100 - lowestPercent;
+    return lowestPercent + availableWidth * distanceFromWinner;
+  }
+
   records
     .filter(record => !excludedItems.includes(record['Item#']))
     .forEach(addAmounts)
@@ -153,14 +165,15 @@ function generateTopTables(tablesByBidder, csv) {
   const topTables = sortedTables
     .slice(0, displayNumber)
     .map(r => ({
-      name: r[0],
+      name: parseInt(r[0]) ? ('Table ' + r[0]) : r[0],
       amount: formatDollars(r[1]),
       diff: formatDollars(r[1] - topAmount),
       winner: r[1] === topAmount,
-      perc: (r[1] / topAmount) * 100
+      perc: calculateWidth(r[1], topAmount)
     }))
+  const lastWidth = topTables[displayNumber - 1]["perc"]
 
-  writeHtml('top-tables', { tables: topTables })
+  writeHtml('top-tables', { tables: topTables, hideAside: lastWidth >= 60 })
 }
 
 

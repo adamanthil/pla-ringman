@@ -36,7 +36,7 @@ aside {
     position: relative;
     display: flex;
     justify-content: space-between;
-    min-width: 300px;
+    min-width: 222px;
     line-height: 1;
 }
 
@@ -60,6 +60,7 @@ aside {
 .top-tables div .diff {
     font-size: 24px;
     color: #BA0001;
+    opacity: 0.9;
 }
 
 /** Winner */
