@@ -30,7 +30,7 @@ aside {
 }
 
 .top-tables div {
-    background-color: #f2f2f2;
+    background-color: #e0e0e0;
     margin-bottom: 5px;
     padding: 15px;
     position: relative;
@@ -65,7 +65,7 @@ aside {
 
 /** Winner */
 .top-tables div.winner {
-    background-color: #e6e6e6;
+    background-color: #d0d0d0;
 }
 .top-tables div.winner .total {
     color: #249243;
