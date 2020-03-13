@@ -220,6 +220,7 @@ async function refreshLogin() {
   const tablesByBidder = getTablesByBidder(await getReportCSV(seatingAssignmentRequestData, cookies))
 
   let i = 0;
+  let bidHistoryCSV, silentWinnersCSV, raffleWinnersCSV;
   while (true) {
     writeLog(`Iteration ${i}`)
 
@@ -230,16 +231,16 @@ async function refreshLogin() {
     }
 
     writeLog('Generating Top Tables')
-    let bidHistoryCSV = await getReportCSV(bidHistoryRequestData, cookies)
+    bidHistoryCSV = await getReportCSV(bidHistoryRequestData, cookies)
     generateTopTables(tablesByBidder, bidHistoryCSV)
 
     // Only regenerate silent auction and raffle winners every 4 minutes
     if (i % 8 == 0) {
       writeLog('Pulling Silent Auction Winners')
-      let silentWinnersCSV = await getReportCSV(silentWinnersRequestData, cookies)
+      silentWinnersCSV = await getReportCSV(silentWinnersRequestData, cookies)
 
       writeLog('Pulling Raffle Winners')
-      let raffleWinnersCSV = await getReportCSV(raffleWinnersRequestData, cookies)
+      raffleWinnersCSV = await getReportCSV(raffleWinnersRequestData, cookies)
 
       writeLog('Generating Winners Report')
       generateWinners(silentWinnersCSV, raffleWinnersCSV)
