@@ -4,7 +4,7 @@
   "description": "Tool for scraping and displaying auction data from Auctria for the Peace Lutheran Academy Goods and Services Auction",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "csv-parse": "^4.4.6",
     "dotenv": "^6.2.0",
     "handlebars": "^4.7.3",
