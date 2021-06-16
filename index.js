@@ -206,9 +206,14 @@ function generateWinners(silentCSV, raffleCSV) {
   }
 
   const silentPages = chunkAndLabel(silentRecords, 'Silent Auction Winners')
-  const rafflePages = chunkAndLabel(raffleRecords, 'Raffle Winners')
 
-  writeHtml('winners', { 'pages': silentPages.concat(rafflePages) })
+  let pages = silentPages
+  if (process.env.SHOW_RAFFLE === "true") {
+    const rafflePages = chunkAndLabel(raffleRecords, 'Raffle Winners')
+    pages = silentPages.concat(rafflePages)
+  }
+
+  writeHtml('winners', { 'pages': pages })
 }
 
 
