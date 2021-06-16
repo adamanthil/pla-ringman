@@ -171,7 +171,9 @@ function generateTopTables(tablesByBidder, csv) {
       winner: r[1] === topAmount,
       perc: calculateWidth(r[1], topAmount)
     }))
-  const lastWidth = topTables[displayNumber - 1]["perc"]
+  const lastWidth = topTables[
+      topTables.length > displayNumber ? displayNumber - 1 : topTables.length - 1
+  ]["perc"]
 
   writeHtml('top-tables', { tables: topTables, hideAside: lastWidth >= 60 })
 }
